@@ -1,3 +1,6 @@
 aiogram
 aioredis
 environs
+gino
+sqlalchemy
+psycopg2

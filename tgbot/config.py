@@ -48,3 +48,6 @@ def load_config(path: str = None):
         ),
         misc=Miscellaneous()
     )
+
+POSTGRES_URL = f"postgresql://{load_config().db.user}:{load_config().db.password}@{load_config().db.host}/{load_config().db.database}"
+print(POSTGRES_URL)

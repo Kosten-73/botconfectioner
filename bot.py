@@ -6,7 +6,12 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
 from tgbot.config import load_config
+from tgbot.database.db_api import on_startup_database
+from tgbot.filters.admin_check import AdminFilter
+from tgbot.handlers.admins_handlers.main_handlers import register_start_admin_handlers
+from tgbot.handlers.admins_handlers.portfolio_handlers import register_portfolio_admin_handlers
 from tgbot.handlers.users_handlers.start_user_handler import register_start_user_handlers
+from tgbot.misc.default_commands import set_default_commands
 
 logger = logging.getLogger(__name__)
 
@@ -16,12 +21,13 @@ def register_all_middlewares(dp, config):
 
 
 def register_all_filters(dp):
-    pass
+    dp.filters_factory.bind(AdminFilter)
 
 
 def register_all_handlers(dp):
     register_start_user_handlers(dp)
-
+    register_start_admin_handlers(dp)
+    register_portfolio_admin_handlers(dp)
 
 async def main():
     logging.basicConfig(
@@ -43,12 +49,13 @@ async def main():
 
     # start
     try:
+        await on_startup_database(dp)
+        await set_default_commands(bot)
         await dp.start_polling()
     finally:
         await dp.storage.close()
         await dp.storage.wait_closed()
         await bot.session.close()
-
 
 if __name__ == '__main__':
     try:
