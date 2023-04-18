@@ -10,6 +10,7 @@ from tgbot.database.db_api import on_startup_database
 from tgbot.filters.admin_check import AdminFilter
 from tgbot.handlers.admins_handlers.main_handlers import register_start_admin_handlers
 from tgbot.handlers.admins_handlers.portfolio_handlers import register_portfolio_admin_handlers
+from tgbot.handlers.admins_handlers.show_portfolio import register_show_portfolio_admin_handlers
 from tgbot.handlers.users_handlers.start_user_handler import register_start_user_handlers
 from tgbot.misc.default_commands import set_default_commands
 
@@ -31,6 +32,7 @@ def register_all_handlers(dp):
     register_start_user_handlers(dp)
     register_start_admin_handlers(dp)
     register_portfolio_admin_handlers(dp)
+    register_show_portfolio_admin_handlers(dp)
 
 async def main():
     logging.basicConfig(
