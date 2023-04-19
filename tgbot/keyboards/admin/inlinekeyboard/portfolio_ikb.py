@@ -4,11 +4,11 @@ from tgbot.database.db_portfolio import command_portfolio as cmd_db
 
 portfolio_ikb = InlineKeyboardMarkup(row_width=1,
                                      inline_keyboard=[
-                                         [InlineKeyboardButton(text='Посмотреть портфолио❌',
+                                         [InlineKeyboardButton(text='Посмотреть портфолио📖',
                                                                callback_data='show_portfolio')],
-                                         [InlineKeyboardButton(text='Добавить✅',
+                                         [InlineKeyboardButton(text='Добавить работу✅',
                                                                callback_data='add_new_item')],
-                                         [InlineKeyboardButton(text='Назад✅',
+                                         [InlineKeyboardButton(text='Назад↩️',
                                                                callback_data='back')]
                                      ]
                                      )
@@ -21,14 +21,14 @@ def get_items_keyboard(page: int = 0, count_items: int = 0) -> InlineKeyboardMar
     if page != 0:
         keyboard.insert(
             InlineKeyboardButton(
-                text="< Назад",
+                text="⏪",
                 callback_data=item_callback.new(page=page - 1, action='following')
             )
         )
 
     keyboard.insert(
         InlineKeyboardButton(
-            text=f"• {page + 1}",
+            text=f"↔️",
             callback_data="dont_click_me"
         )
     )
@@ -36,39 +36,39 @@ def get_items_keyboard(page: int = 0, count_items: int = 0) -> InlineKeyboardMar
     if has_next_page:
         keyboard.insert(
             InlineKeyboardButton(
-                text="Вперёд >",
+                text="⏩",
                 callback_data=item_callback.new(page=page + 1, action='following')
             )
         )
 
     keyboard.add(
-        InlineKeyboardButton(text='Вернутся в меню',
-                             callback_data='return_menu_portfolio'
-
-        )
-    )
-
-    keyboard.add(
-        InlineKeyboardButton(text='Удалить',
+        InlineKeyboardButton(text='🛑Удалить',
                              callback_data=item_callback.new(page=page + 1, action='delete')
         )
     )
 
     keyboard.add(
-        InlineKeyboardButton(text='Изменить название',
+        InlineKeyboardButton(text='🟢Изменить название',
                              callback_data=item_callback.new(page=page + 1, action='edit_name')
                              )
     )
 
     keyboard.add(
-        InlineKeyboardButton(text='Изменить описание',
+        InlineKeyboardButton(text='🟢Изменить описание',
                              callback_data=item_callback.new(page=page + 1, action='edit_description')
                              )
     )
 
     keyboard.add(
-        InlineKeyboardButton(text='Изменить фото',
+        InlineKeyboardButton(text='🌅Изменить фото',
                              callback_data=item_callback.new(page=page + 1, action='edit_photo')
+                             )
+    )
+
+    keyboard.add(
+        InlineKeyboardButton(text='Вернутся в меню↩️',
+                             callback_data='return_menu_portfolio'
+
                              )
     )
 

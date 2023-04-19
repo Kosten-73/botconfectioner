@@ -12,6 +12,7 @@ from tgbot.handlers.admins_handlers.main_handlers import register_start_admin_ha
 from tgbot.handlers.admins_handlers.portfolio.edit_portfolio import register_edit_portfolio_admin_handlers
 from tgbot.handlers.admins_handlers.portfolio.portfolio_handlers import register_portfolio_admin_handlers
 from tgbot.handlers.admins_handlers.portfolio.show_portfolio import register_show_portfolio_admin_handlers
+from tgbot.handlers.users_handlers.show_portfolio.show_portfolio import register_show_portfolio_user_handlers
 from tgbot.handlers.users_handlers.start_user_handler import register_start_user_handlers
 from tgbot.misc.default_commands import set_default_commands
 
@@ -31,6 +32,7 @@ def register_all_filters(dp):
 
 def register_all_handlers(dp):
     register_start_user_handlers(dp)
+    register_show_portfolio_user_handlers(dp)
 
     register_start_admin_handlers(dp)
     register_portfolio_admin_handlers(dp)
