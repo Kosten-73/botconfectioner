@@ -21,6 +21,7 @@ async def cancel_cmd(message: types.Message, state: FSMContext):
 
 
 async def add_item(callback: types.CallbackQuery):
+    await callback.message.delete()
     await callback.message.answer('Напишите название', reply_markup=cancel_kb)
     await ItemStateGroup.item_name.set()
 
@@ -55,6 +56,7 @@ async def accept_item(callback: types.CallbackQuery, state: FSMContext):
         description = data['item_description']
         photo = data['item_photo']
     await cmd_db.add_item_db(item_name=name, item_description=description, item_photo=photo)
+    await callback.message.answer('Меню портфолио', reply_markup=portfolio_ikb)
     await state.finish()
 
 

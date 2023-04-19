@@ -9,8 +9,9 @@ from tgbot.config import load_config
 from tgbot.database.db_api import on_startup_database
 from tgbot.filters.admin_check import AdminFilter
 from tgbot.handlers.admins_handlers.main_handlers import register_start_admin_handlers
-from tgbot.handlers.admins_handlers.portfolio_handlers import register_portfolio_admin_handlers
-from tgbot.handlers.admins_handlers.show_portfolio import register_show_portfolio_admin_handlers
+from tgbot.handlers.admins_handlers.portfolio.edit_portfolio import register_edit_portfolio_admin_handlers
+from tgbot.handlers.admins_handlers.portfolio.portfolio_handlers import register_portfolio_admin_handlers
+from tgbot.handlers.admins_handlers.portfolio.show_portfolio import register_show_portfolio_admin_handlers
 from tgbot.handlers.users_handlers.start_user_handler import register_start_user_handlers
 from tgbot.misc.default_commands import set_default_commands
 
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 config = load_config(".env")
 bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
 
-
+from tgbot.database.db_api import db
 def register_all_middlewares(dp, config):
     pass
 
@@ -30,9 +31,12 @@ def register_all_filters(dp):
 
 def register_all_handlers(dp):
     register_start_user_handlers(dp)
+
     register_start_admin_handlers(dp)
     register_portfolio_admin_handlers(dp)
     register_show_portfolio_admin_handlers(dp)
+    register_edit_portfolio_admin_handlers(dp)
+
 
 async def main():
     logging.basicConfig(

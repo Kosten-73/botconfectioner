@@ -19,6 +19,7 @@ async def command_help(message: types.Message):
 
 
 async def open_admin_panel(message: types.Message):
+    await message.delete()
     await message.answer('Админ панель:',
                          reply_markup=main_menu_ikb)
 

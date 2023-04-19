@@ -11,3 +11,7 @@ class ItemStateGroup(StatesGroup):
     item_photo_edit = State()
 
     item_await = State()
+
+    item_edit_name_in_db = State()
+    item_edit_description_db = State()
+    item_edit_photo_in_db = State()
