@@ -16,19 +16,6 @@ async def command_help(message: types.Message):
     await message.answer('Здесь будет описание функций')
 
 
-async def contact_katya_cb(callback: types.CallbackQuery):
-    await callback.message.answer('Здесь будут ссылки для связи с тобой')
-
-
-async def contact_katya_m(message: types.Message):
-    await message.delete()
-    await message.answer('Здесь будут ссылки для связи с тобой')
-
-
 def register_start_user_handlers(dp: Dispatcher):
     dp.register_message_handler(command_start, CommandStart())
     dp.register_message_handler(command_help, CommandHelp())
-    dp.register_callback_query_handler(contact_katya_cb, text='contact_to_Katya')
-    dp.register_message_handler(contact_katya_m, commands='contact')
-
-

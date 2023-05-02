@@ -8,22 +8,31 @@ from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from tgbot.config import load_config
 from tgbot.database.db_api import on_startup_database
 from tgbot.filters.admin_check import AdminFilter
-from tgbot.handlers.admins_handlers.main_handlers import register_start_admin_handlers
-from tgbot.handlers.admins_handlers.portfolio.edit_portfolio import register_edit_portfolio_admin_handlers
-from tgbot.handlers.admins_handlers.portfolio.portfolio_handlers import register_portfolio_admin_handlers
-from tgbot.handlers.admins_handlers.portfolio.show_portfolio import register_show_portfolio_admin_handlers
-from tgbot.handlers.users_handlers.show_portfolio.show_portfolio import register_show_portfolio_user_handlers
-from tgbot.handlers.users_handlers.start_user_handler import register_start_user_handlers
+from tgbot.handlers.admin.main_handlers import register_start_admin_handlers
+from tgbot.handlers.admin.order.main_order import register_main_order_handlers
+from tgbot.handlers.admin.order.show_orders import register_show_order_handlers
+from tgbot.handlers.admin.order.support_order import register_support_order_handlers
+from tgbot.handlers.admin.portfolio.edit_portfolio import register_edit_portfolio_admin_handlers
+from tgbot.handlers.admin.portfolio.portfolio_handlers import register_portfolio_admin_handlers
+from tgbot.handlers.admin.portfolio.show_portfolio import register_show_portfolio_admin_handlers
+from tgbot.handlers.user.order_handlers.main_order import register_main_order_user_handlers
+from tgbot.handlers.user.order_handlers.make_order import register_order_handlers
+from tgbot.handlers.user.portfolio_handlers.show_portfolio import register_show_portfolio_user_handlers
+from tgbot.handlers.user.start_user_handler import register_start_user_handlers
+from tgbot.middlewares.support_middleware import SupportMiddleware
+# from tgbot.middlewares.support_middleware import SupportMiddleware
 from tgbot.misc.default_commands import set_default_commands
 
 logger = logging.getLogger(__name__)
 
 config = load_config(".env")
 bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
+storage = RedisStorage2() if config.tg_bot.use_redis else MemoryStorage()
+dp = Dispatcher(bot, storage=storage)
 
-from tgbot.database.db_api import db
+
 def register_all_middlewares(dp, config):
-    pass
+    dp.setup_middleware(SupportMiddleware())
 
 
 def register_all_filters(dp):
@@ -33,12 +42,17 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     register_start_user_handlers(dp)
     register_show_portfolio_user_handlers(dp)
+    register_order_handlers(dp)
+    register_main_order_user_handlers(dp)
 
     register_start_admin_handlers(dp)
     register_portfolio_admin_handlers(dp)
     register_show_portfolio_admin_handlers(dp)
     register_edit_portfolio_admin_handlers(dp)
+    register_support_order_handlers(dp)
 
+    register_main_order_handlers(dp)
+    register_show_order_handlers(dp)
 
 async def main():
     logging.basicConfig(
@@ -47,9 +61,6 @@ async def main():
     )
     logger.info("Starting bot")
 
-    storage = RedisStorage2() if config.tg_bot.use_redis else MemoryStorage()
-
-    dp = Dispatcher(bot, storage=storage)
 
     bot['config'] = config
 
