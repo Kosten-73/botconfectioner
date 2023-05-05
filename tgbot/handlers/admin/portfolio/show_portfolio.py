@@ -41,8 +41,8 @@ async def item_page_handler(query: types.CallbackQuery, callback_data: dict):
 
 
 def register_show_portfolio_admin_handlers(dp: Dispatcher):
-    dp.register_callback_query_handler(item_index, AdminFilter(), text='portfolio_handlers')
-    dp.register_callback_query_handler(item_page_handler, AdminFilter(), item_callback.filter(action='following'))
+    dp.register_callback_query_handler(item_index, text='portfolio_handlers', is_admin=True)
+    dp.register_callback_query_handler(item_page_handler, item_callback.filter(action='following'), is_admin=True)
 
-    dp.register_callback_query_handler(return_menu_portfolio, AdminFilter(), text='return_menu_portfolio')
+    dp.register_callback_query_handler(return_menu_portfolio, text='return_menu_portfolio', is_admin=True)
 

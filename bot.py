@@ -11,7 +11,7 @@ from tgbot.filters.admin_check import AdminFilter
 from tgbot.handlers.admin.main_handlers import register_start_admin_handlers
 from tgbot.handlers.admin.order.main_order import register_main_order_handlers
 from tgbot.handlers.admin.order.show_orders import register_show_order_handlers
-from tgbot.handlers.admin.order.support_order import register_support_order_handlers
+from tgbot.handlers.admin.order.support_order import register_support_call_admin_handlers
 from tgbot.handlers.admin.portfolio.edit_portfolio import register_edit_portfolio_admin_handlers
 from tgbot.handlers.admin.portfolio.portfolio_handlers import register_portfolio_admin_handlers
 from tgbot.handlers.admin.portfolio.show_portfolio import register_show_portfolio_admin_handlers
@@ -19,8 +19,8 @@ from tgbot.handlers.user.order_handlers.main_order import register_main_order_us
 from tgbot.handlers.user.order_handlers.make_order import register_order_handlers
 from tgbot.handlers.user.portfolio_handlers.show_portfolio import register_show_portfolio_user_handlers
 from tgbot.handlers.user.start_user_handler import register_start_user_handlers
+from tgbot.handlers.user.support_handlers.support_call import register_support_call_user_handlers
 from tgbot.middlewares.support_middleware import SupportMiddleware
-# from tgbot.middlewares.support_middleware import SupportMiddleware
 from tgbot.misc.default_commands import set_default_commands
 
 logger = logging.getLogger(__name__)
@@ -33,6 +33,7 @@ dp = Dispatcher(bot, storage=storage)
 
 def register_all_middlewares(dp, config):
     dp.setup_middleware(SupportMiddleware())
+    pass
 
 
 def register_all_filters(dp):
@@ -49,7 +50,8 @@ def register_all_handlers(dp):
     register_portfolio_admin_handlers(dp)
     register_show_portfolio_admin_handlers(dp)
     register_edit_portfolio_admin_handlers(dp)
-    register_support_order_handlers(dp)
+    register_support_call_admin_handlers(dp)
+    register_support_call_user_handlers(dp)
 
     register_main_order_handlers(dp)
     register_show_order_handlers(dp)

@@ -51,4 +51,4 @@ def load_config(path: str = None):
 
 POSTGRES_URL = f"postgresql://{load_config().db.user}:{load_config().db.password}@{load_config().db.host}/{load_config().db.database}"
 
-support_ids = [737006731]
+support_id = 737006731

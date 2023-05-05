@@ -1,7 +1,22 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.utils.callback_data import CallbackData
 
-accept_sup = InlineKeyboardMarkup(row_width=1,
-                                inline_keyboard=[
-                                    [InlineKeyboardButton('Принять',
-                                                          callback_data='accept_supper')],
-                                ])
+support_callback = CallbackData('accept', 'admin_id', 'action')
+
+
+def get_keyboard_accept_sup_user_ikb(admin_id: int = None):
+    keyboard = InlineKeyboardMarkup(row_width=1)
+
+    keyboard.add(InlineKeyboardButton(
+        text='Принять',
+        callback_data=support_callback.new(admin_id=admin_id,
+                                           action='accept')
+    ))
+
+    keyboard.add(InlineKeyboardButton(
+        text='Отменить',
+        callback_data=support_callback.new(admin_id=admin_id,
+                                           action='cancel')
+    ))
+
+    return keyboard

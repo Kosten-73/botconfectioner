@@ -55,7 +55,7 @@ async def order_page_handler(query: types.CallbackQuery, callback_data: dict):
 
 
 def register_show_order_handlers(dp: Dispatcher):
-    dp.register_callback_query_handler(order_index, AdminFilter(), text='all_orders')
-    dp.register_callback_query_handler(order_page_handler, AdminFilter(), order_callback.filter(action='follow'))
+    dp.register_callback_query_handler(order_index, text='all_orders', is_admin=True)
+    dp.register_callback_query_handler(order_page_handler, order_callback.filter(action='follow'), is_admin=True)
 
-    dp.register_callback_query_handler(back_to_menu, AdminFilter(), text='back_to_menu_order')
+    dp.register_callback_query_handler(back_to_menu, text='back_to_menu_order', is_admin=True)

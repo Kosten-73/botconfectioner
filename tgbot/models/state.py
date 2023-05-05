@@ -30,7 +30,8 @@ class OrderStateGroup(StatesGroup):
 
     await_create = State()
 
-class SupportStateGroup(StatesGroup):
 
+class SupportStateGroup(StatesGroup):
+    wait_accept_to_user = State()
     in_support_user = State()
     in_support_admin = State()

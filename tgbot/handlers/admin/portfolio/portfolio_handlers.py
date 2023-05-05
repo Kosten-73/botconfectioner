@@ -116,28 +116,28 @@ async def reject_item(callback: types.CallbackQuery, state: FSMContext):
 
 
 def register_portfolio_admin_handlers(dp: Dispatcher):
-    dp.register_message_handler(cancel_cmd, AdminFilter(), state='*', content_types=types.ContentType.ANY,
-                                text='Отмена')
-    dp.register_callback_query_handler(menu_portfolio, AdminFilter(), text='open_portfolio')
+    dp.register_message_handler(cancel_cmd, state='*', content_types=types.ContentType.ANY,
+                                text='Отмена', is_admin=True)
+    dp.register_callback_query_handler(menu_portfolio, text='open_portfolio', is_admin=True)
 
-    dp.register_callback_query_handler(add_item, AdminFilter(), text='add_new_item')
-    dp.register_message_handler(add_name, AdminFilter(), state=ItemStateGroup.item_name)
-    dp.register_message_handler(add_description, AdminFilter(), state=ItemStateGroup.item_description)
-    dp.register_message_handler(add_photo, AdminFilter(), content_types=types.ContentType.PHOTO,
-                                state=ItemStateGroup.item_photo)
+    dp.register_callback_query_handler(add_item, text='add_new_item', is_admin=True)
+    dp.register_message_handler(add_name, state=ItemStateGroup.item_name, is_admin=True)
+    dp.register_message_handler(add_description, state=ItemStateGroup.item_description, is_admin=True)
+    dp.register_message_handler(add_photo, content_types=types.ContentType.PHOTO,
+                                state=ItemStateGroup.item_photo, is_admin=True)
 
-    dp.register_callback_query_handler(accept_item, AdminFilter(), accept_callback.filter(action='accept'), state='*')
+    dp.register_callback_query_handler(accept_item, accept_callback.filter(action='accept'), state='*', is_admin=True)
 
-    dp.register_callback_query_handler(edit_name, AdminFilter(), accept_callback.filter(action='edit_name'), state='*')
-    dp.register_message_handler(add_edit_name, AdminFilter(), state=ItemStateGroup.item_name_edit)
+    dp.register_callback_query_handler(edit_name, accept_callback.filter(action='edit_name'), state='*', is_admin=True)
+    dp.register_message_handler(add_edit_name, state=ItemStateGroup.item_name_edit, is_admin=True)
 
-    dp.register_callback_query_handler(edit_description, AdminFilter(), accept_callback.filter(action='edit_description'),state='*')
-    dp.register_message_handler(add_edit_description, AdminFilter(), state=ItemStateGroup.item_description_edit)
+    dp.register_callback_query_handler(edit_description, accept_callback.filter(action='edit_description'), state='*', is_admin=True)
+    dp.register_message_handler(add_edit_description, state=ItemStateGroup.item_description_edit, is_admin=True)
 
-    dp.register_callback_query_handler(edit_photo, AdminFilter(),
-                                       accept_callback.filter(action='edit_photo'), state='*')
-    dp.register_message_handler(add_edit_photo, AdminFilter(), state=ItemStateGroup.item_photo_edit,
-                                content_types=types.ContentType.PHOTO)
+    dp.register_callback_query_handler(edit_photo,
+                                       accept_callback.filter(action='edit_photo'), state='*', is_admin=True)
+    dp.register_message_handler(add_edit_photo, state=ItemStateGroup.item_photo_edit,
+                                content_types=types.ContentType.PHOTO, is_admin=True)
 
-    dp.register_callback_query_handler(reject_item, AdminFilter(), accept_callback.filter(action='reject_item'),
-                                       state='*')
+    dp.register_callback_query_handler(reject_item, accept_callback.filter(action='reject_item'),
+                                       state='*', is_admin=True)

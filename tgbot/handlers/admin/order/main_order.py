@@ -41,7 +41,7 @@ async def accept_pay_order(callback: types.CallbackQuery, callback_data: dict):
 
 
 def register_main_order_handlers (dp: Dispatcher):
-    dp.register_callback_query_handler(open_list_order, AdminFilter(), text='open_order')
-    dp.register_callback_query_handler(delete_order, AdminFilter(), order_callback.filter(action='delete_order'))
-    dp.register_callback_query_handler(accept_pay_order, AdminFilter(),
-                                       order_callback.filter(action='accept_pay_order'))
+    dp.register_callback_query_handler(open_list_order, text='open_order', is_admin=True)
+    dp.register_callback_query_handler(delete_order, order_callback.filter(action='delete_order'), is_admin=True)
+    dp.register_callback_query_handler(accept_pay_order,
+                                       order_callback.filter(action='accept_pay_order'), is_admin=True)

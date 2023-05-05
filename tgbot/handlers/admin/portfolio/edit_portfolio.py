@@ -95,15 +95,21 @@ async def enter_new_photo_item(message: types.Message, state: FSMContext):
 
 
 def register_edit_portfolio_admin_handlers(dp: Dispatcher):
-    dp.register_callback_query_handler(item_delete_handler, AdminFilter(), item_callback.filter(action='delete'))
+    dp.register_callback_query_handler(item_delete_handler,
+                                       item_callback.filter(action='delete'), is_admin=True)
 
-    dp.register_callback_query_handler(edit_name_item, AdminFilter(), item_callback.filter(action='edit_name'))
-    dp.register_message_handler(enter_new_name_item, AdminFilter(), state=ItemStateGroup.item_edit_name_in_db)
+    dp.register_callback_query_handler(edit_name_item,
+                                       item_callback.filter(action='edit_name'), is_admin=True)
+    dp.register_message_handler(enter_new_name_item,
+                                state=ItemStateGroup.item_edit_name_in_db, is_admin=True)
 
-    dp.register_callback_query_handler(edit_description_item, AdminFilter(), item_callback.filter(action='edit_description'))
-    dp.register_message_handler(enter_new_description_item, AdminFilter(), state=ItemStateGroup.item_edit_description_db)
+    dp.register_callback_query_handler(edit_description_item,
+                                       item_callback.filter(action='edit_description'), is_admin=True)
+    dp.register_message_handler(enter_new_description_item,
+                                state=ItemStateGroup.item_edit_description_db, is_admin=True)
 
-    dp.register_callback_query_handler(edit_photo_item, AdminFilter(),
-                                       item_callback.filter(action='edit_photo'))
-    dp.register_message_handler(enter_new_photo_item, AdminFilter(),
-                                state=ItemStateGroup.item_edit_photo_in_db, content_types=types.ContentTypes.PHOTO)
+    dp.register_callback_query_handler(edit_photo_item,
+                                       item_callback.filter(action='edit_photo'), is_admin=True)
+    dp.register_message_handler(enter_new_photo_item,
+                                state=ItemStateGroup.item_edit_photo_in_db,
+                                content_types=types.ContentTypes.PHOTO, is_admin=True)
