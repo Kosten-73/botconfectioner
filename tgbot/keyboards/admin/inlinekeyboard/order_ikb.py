@@ -1,11 +1,17 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.callback_data import CallbackData
 
-order_link_ad = InlineKeyboardMarkup(row_width=1,
-                                       inline_keyboard=[
-                                           [InlineKeyboardButton(text='Связаться с покупателем',
-                                                                 callback_data='link_to_buyer')]
-                                       ])
+
+support_user_callback = CallbackData('support', 'user_id')
+
+def get_link_to_user_keyboard(user_id: int = None) -> InlineKeyboardMarkup:
+    keyboard = InlineKeyboardMarkup(row_width=1)
+    keyboard.add(InlineKeyboardButton(
+        text='Связаться с покупателем',
+        callback_data=support_user_callback.new(user_id=user_id)
+    ))
+    return keyboard
+
 
 order_ikb = InlineKeyboardMarkup(row_width=1,
                                      inline_keyboard=[

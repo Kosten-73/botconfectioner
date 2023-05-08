@@ -2,8 +2,8 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-
-from tgbot.keyboards.admin.inlinekeyboard.order_ikb import order_link_ad
+from tgbot.config import support_id
+from tgbot.keyboards.admin.inlinekeyboard.order_ikb import get_link_to_user_keyboard
 from tgbot.keyboards.user.inlinekeyboard.main_menu_ikb import main_menu_ikb
 from tgbot.keyboards.user.inlinekeyboard.order_ikb import choice_cb, choice_order_ikb, filling_cake_ikb, \
     value_cake_ikb, filling_cupcake_ikb, value_cupcake_ikb, stop_ikb, accept_ikb, accept_order_ikb
@@ -151,7 +151,7 @@ async def create_order(callback: types.CallbackQuery, state: FSMContext):
     await callback.message.answer('Главное меню бота', reply_markup=main_menu_ikb)
     await state.finish()
 
-    await bot.send_photo(chat_id=737006731, photo=data['photo'],
+    await bot.send_photo(chat_id=support_id, photo=data['photo'],
                          caption=f"Вам поступил новый заказ!"
                          f"Никнейм заказчика:{data['user_name']}\n"
                          f"Адрес доставки:{data['user_address']}\n"
@@ -159,10 +159,10 @@ async def create_order(callback: types.CallbackQuery, state: FSMContext):
                          f"Что заказали: {data['product']}\n"
                          f"Начинка:{data['filling']}\n"
                          f"Количество:{data['value']}",
-                         reply_markup=order_link_ad)
+                         reply_markup=get_link_to_user_keyboard(user_id=user_id))
 
 
-def register_order_handlers (dp: Dispatcher):
+def register_order_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(start_make_order, text='make_order')
     dp.register_callback_query_handler(stop_order, text='stop_order', state='*')
     dp.register_message_handler(stop_order_kb, text='Отмена', state='*')

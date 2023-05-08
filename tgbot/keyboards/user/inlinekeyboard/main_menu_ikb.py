@@ -9,7 +9,7 @@ main_menu_ikb = InlineKeyboardMarkup(row_width=1,
                                          [InlineKeyboardButton(text='Посмотреть мой текущий заказ',
                                                                callback_data='show_my_order')],
                                          [InlineKeyboardButton(text='Связаться с кондитером',
-                                                               callback_data='ask_support_call')]
+                                                               callback_data='link_support_call')]
                                      ]
                                      )
 
