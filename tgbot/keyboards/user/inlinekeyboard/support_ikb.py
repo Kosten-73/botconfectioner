@@ -21,6 +21,7 @@ def get_keyboard_accept_sup_user_ikb(admin_id: int = None):
 
     return keyboard
 
+
 def get_cancel_wait_sup_keyboard(admin_id: int = None):
     keyboard = InlineKeyboardMarkup(row_width=1)
 

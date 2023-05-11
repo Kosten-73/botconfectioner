@@ -2,9 +2,10 @@ from tgbot.database.db_api import OrdersUser, db
 
 
 async def add_order_db(user_id: int, user_name: str, user_phone: str,
-                       user_address: str, product: str, filling: str, value: str, photo: str):
+                       user_address: str, category: str, subcategory: str, filling: str, value: str, photo: str):
     order = OrdersUser(user_id=user_id, user_name=user_name, user_phone=user_phone,
-                       user_address=user_address, product=product, filling=filling, value=value, photo=photo)
+                       user_address=user_address, category=category, subcategory=subcategory,
+                       filling=filling, value=value, photo=photo)
     await order.create()
 
 

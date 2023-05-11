@@ -16,8 +16,11 @@ from tgbot.handlers.admin.support_handlers.support_order import register_support
 from tgbot.handlers.admin.portfolio.edit_portfolio import register_edit_portfolio_admin_handlers
 from tgbot.handlers.admin.portfolio.portfolio_handlers import register_portfolio_admin_handlers
 from tgbot.handlers.admin.portfolio.show_portfolio import register_show_portfolio_admin_handlers
+from tgbot.handlers.user.order_handlers.main_make_order import register_main_make_order_handlers
 from tgbot.handlers.user.order_handlers.main_order import register_main_order_user_handlers
-from tgbot.handlers.user.order_handlers.make_order import register_order_handlers
+from tgbot.handlers.user.order_handlers.make_brownie_order import register_make_brownie_order_handlers
+from tgbot.handlers.user.order_handlers.make_cake_in_glass_order import register_make_cake_in_glass_order_handlers
+from tgbot.handlers.user.order_handlers.make_cake_order import register_make_cake_order_handlers
 from tgbot.handlers.user.portfolio_handlers.show_portfolio import register_show_portfolio_user_handlers
 from tgbot.handlers.user.start_user_handler import register_start_user_handlers
 from tgbot.handlers.user.support_handlers.support_call import register_support_call_user_handlers
@@ -45,13 +48,18 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     register_start_user_handlers(dp)
     register_show_portfolio_user_handlers(dp)
-    register_order_handlers(dp)
     register_main_order_user_handlers(dp)
+
+    register_main_make_order_handlers(dp)
+    register_make_cake_order_handlers(dp)
+    register_make_cake_in_glass_order_handlers(dp)
+    register_make_brownie_order_handlers(dp)
 
     register_start_admin_handlers(dp)
     register_portfolio_admin_handlers(dp)
     register_show_portfolio_admin_handlers(dp)
     register_edit_portfolio_admin_handlers(dp)
+
     register_support_call_admin_handlers(dp)
     register_support_call_user_handlers(dp)
     register_support_main_user_handlers(dp)
@@ -60,13 +68,13 @@ def register_all_handlers(dp):
     register_main_order_handlers(dp)
     register_show_order_handlers(dp)
 
+
 async def main():
     logging.basicConfig(
         level=logging.INFO,
         format=u'%(filename)s:%(lineno)d #%(levelname)-8s [%(asctime)s] - %(name)s - %(message)s',
     )
     logger.info("Starting bot")
-
 
     bot['config'] = config
 

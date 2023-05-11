@@ -22,6 +22,7 @@ async def accept_call(callback: types.CallbackQuery, state: FSMContext, callback
     await admin_state.set_state(state=SupportStateGroup.in_support_admin)
     await admin_state.update_data(user_id=user_id)
 
+
 async def cancel_call(callback: types.CallbackQuery, callback_data: dict):
     from bot import bot, dp
     admin_id = callback_data['admin_id']

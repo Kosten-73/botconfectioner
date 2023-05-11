@@ -1,6 +1,5 @@
 from aiogram import Dispatcher, types
 
-from tgbot.filters.admin_check import AdminFilter
 from tgbot.database.db_order import command_order as cmd_db
 from tgbot.keyboards.admin.inlinekeyboard.order_ikb import order_ikb, order_callback
 
@@ -34,7 +33,8 @@ async def accept_pay_order(callback: types.CallbackQuery, callback_data: dict):
                                  f"Никнейм: {order_data.get('user_name')}\n" \
                                  f"Номер телефона: {order_data.get('user_phone')}\n" \
                                  f"Адрес: {order_data.get('user_address')}\n" \
-                                 f"Что заказали: {order_data.get('product')}\n" \
+                                 f"Что заказали: {order_data.get('category')}\n"
+                                 f"{order_data.get('subcategory')}" \
                                  f"С начинкой: {order_data.get('filling')}\n" \
                                  f"Количество: {order_data.get('value')}\n" \
                                  f"Принят в работу: {accept}")

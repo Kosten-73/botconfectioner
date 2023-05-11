@@ -25,11 +25,14 @@ class OrdersUser(db.Model):
     user_phone = db.Column(db.String(50))
     user_address = db.Column(db.String(255))
 
-    product = db.Column(db.String(100))
+    category = db.Column(db.String(100))
+    subcategory = db.Column(db.String(100))
+
     filling = db.Column(db.String(100))
     value = db.Column(db.String(50))
     photo = db.Column(db.String(255))
     accept = db.Column(db.String(2), default='❌')
+
 
 async def on_startup_database(dp: Dispatcher):
     await db.set_bind(POSTGRES_URL)

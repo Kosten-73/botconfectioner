@@ -1,3 +1,5 @@
+import asyncio
+
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 
@@ -56,7 +58,8 @@ async def link_to_user_new_order(callback: types.CallbackQuery, state: FSMContex
     await state.set_state('wait_accept_sup')
     async with state.proxy() as data:
         data['user_id'] = user_id
-
+    await asyncio.sleep(7200)
+    await state.finish()
 
 def register_support_call_admin_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(link_to_user, order_callback.filter(action='link_user'), is_admin=True)

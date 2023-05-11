@@ -14,7 +14,8 @@ async def show_my_order(callback: types.CallbackQuery):
     caption = f"Никнейм: {order_data['user_name']}\n" \
               f"Номер телефона: {order_data['user_phone']}\n" \
               f"Адрес: {order_data['user_address']}\n" \
-              f"Что заказали: {order_data['product']}\n" \
+              f"Что заказали: {order_data['category']}\n" \
+              f"{order_data['subcategory']}\n" \
               f"С начинкой: {order_data['filling']}\n" \
               f"Количество: {order_data['value']}\n" \
               f"Принят в работу: {order_data['accept']}"

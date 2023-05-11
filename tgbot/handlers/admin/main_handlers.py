@@ -1,10 +1,11 @@
 from aiogram import Dispatcher, types
+from aiogram.dispatcher import FSMContext
 
-from tgbot.filters.admin_check import AdminFilter
 from tgbot.keyboards.admin.inlinekeyboard.main_ikb import main_menu_ikb
 
 
-async def command_start (message: types.Message):
+async def command_start (message: types.Message, state: FSMContext):
+    await state.finish()
     await message.delete()
     await message.answer(f'Здравствуйте, администратор {message.from_user.full_name}\n'
                          f'нажмите команду /help для того чтобы узнать больше')

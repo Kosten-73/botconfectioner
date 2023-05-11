@@ -18,18 +18,18 @@ class ItemStateGroup(StatesGroup):
 
 
 class OrderStateGroup(StatesGroup):
-    choice_type = State()
-    choice_filling = State()
-    choice_value = State()
-    photo_design = State()
+    category = State()
+    subcategory = State()
+
+    filling = State()
+    value = State()
+
+    photo = State()
 
     await_accept = State()
-
     contact_user = State()
     address_user = State()
-
     await_create = State()
-
 
 class SupportStateGroup(StatesGroup):
     wait_accept_to_user = State()
