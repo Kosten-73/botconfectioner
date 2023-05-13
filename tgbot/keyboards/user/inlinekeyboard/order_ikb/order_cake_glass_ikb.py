@@ -120,18 +120,18 @@ choice_cupcake_in_glass_ikb = InlineKeyboardMarkup(row_width=1,
                                                                              callback_data='stop_order')]
                                                        ])
 
-choice_value_cg_cb = CallbackData('choice_value_cg', 'value')
+choice_value_cb = CallbackData('choice_value', 'value')
 
 choice_value_cake_glass_ikb = InlineKeyboardMarkup(row_width=1,
                                                      inline_keyboard=[
                                                          [InlineKeyboardButton('4 штуки',
-                                                                               callback_data=choice_value_cg_cb.new(
+                                                                               callback_data=choice_value_cb.new(
                                                                                    value='4 штуки'))],
                                                          [InlineKeyboardButton('6 штук',
-                                                                               callback_data=choice_value_cg_cb.new(
+                                                                               callback_data=choice_value_cb.new(
                                                                                    value='6 штук'))],
                                                          [InlineKeyboardButton('8 штук',
-                                                                               callback_data=choice_value_cg_cb.new(
+                                                                               callback_data=choice_value_cb.new(
                                                                                    value='8 штук'))],
                                                          [InlineKeyboardButton('Отмена',
                                                                                callback_data='stop_order')]
@@ -141,7 +141,7 @@ choice_value_cake_glass_ikb = InlineKeyboardMarkup(row_width=1,
 choice_value_bento_cake_glass_ikb = InlineKeyboardMarkup(row_width=1,
                                                    inline_keyboard=[
                                                        [InlineKeyboardButton('Бенто-торт(400гр)',
-                                                                             callback_data=choice_value_cg_cb.new(
+                                                                             callback_data=choice_value_cb.new(
                                                                                  value='Бенто-торт(400гр)'))],
                                                        [InlineKeyboardButton('Отмена',
                                                                              callback_data='stop_order')]

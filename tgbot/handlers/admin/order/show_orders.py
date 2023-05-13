@@ -14,8 +14,11 @@ async def back_to_menu(callback: types.CallbackQuery):
 
 async def order_index(callback: types.CallbackQuery):
     from bot import bot
-    await callback.message.delete()
     orders = await cmd_db.select_all_orders()
+    if len(orders) == 0:
+        await callback.answer('У вас нет на данный момент заказов')
+        return
+    await callback.message.delete()
     order_data = orders[0]
     caption = f"Никнейм: {order_data.get('user_name')}\n" \
               f"Номер телефона: {order_data.get('user_phone')}\n" \

@@ -5,7 +5,9 @@ from aiogram.types import ReplyKeyboardRemove
 from tgbot.config import support_id
 from tgbot.keyboards.admin.inlinekeyboard.order_ikb import get_link_to_user_keyboard
 from tgbot.keyboards.user.inlinekeyboard.main_menu_ikb import main_menu_ikb
-from tgbot.keyboards.user.inlinekeyboard.order_ikb.order_main_ikb import choice_category_ikb, accept_order_ikb
+from tgbot.keyboards.user.inlinekeyboard.order_ikb.order_cake_ikb import choice_value_cb
+from tgbot.keyboards.user.inlinekeyboard.order_ikb.order_main_ikb import choice_category_ikb, accept_order_ikb, \
+    accept_ikb, stop_ikb
 from tgbot.keyboards.user.keyboard.order_kb import get_contact_kb
 from tgbot.models.state import OrderStateGroup
 from tgbot.database.db_order import command_order as cmd_db
@@ -28,6 +30,29 @@ async def start_make_order(callback: types.CallbackQuery):
     await callback.message.edit_text('Что вы хотите заказать?',
                                      reply_markup=choice_category_ikb)
     await OrderStateGroup.category.set()
+
+
+async def send_photo_cake_order(callback: types.CallbackQuery, state: FSMContext, callback_data: dict):
+    value = callback_data.get('value')
+    async with state.proxy() as data:
+        data['value'] = value
+    await callback.message.edit_text(text='Пришлите фотографию вашего дизайна',
+                                     reply_markup=stop_ikb)
+    await OrderStateGroup.photo.set()
+
+
+async def enter_photo_order(message: types.Message, state: FSMContext):
+    await message.delete()
+    async with state.proxy() as data:
+        data['photo'] = message.photo[0].file_id
+    await message.answer_photo(photo=data['photo'],
+                               caption=f"Категория: {data['category']}\n"
+                                       f"Подкатегория: {data['subcategory']}\n"
+                                       f"Начинка: {data['filling']}\n"
+                                       f"Размер: {data['value']}\n",
+                               reply_markup=accept_ikb)
+
+    await OrderStateGroup.await_accept.set()
 
 
 async def get_phone_user(callback: types.CallbackQuery):
@@ -91,7 +116,7 @@ async def create_order(callback: types.CallbackQuery, state: FSMContext):
     await state.finish()
 
     await bot.send_photo(chat_id=support_id, photo=data['photo'],
-                         caption=f"Вам поступил новый заказ!"
+                         caption=f"Вам поступил новый заказ!\n"
                          f"Никнейм заказчика:{data['user_name']}\n"
                          f"Адрес доставки:{data['user_address']}\n"
                          f"Номер телефона:{data['user_phone']}\n"
@@ -106,6 +131,12 @@ def register_main_make_order_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(start_make_order, text='make_order')
     dp.register_callback_query_handler(stop_order, text='stop_order', state='*')
     dp.register_message_handler(stop_order_kb, text='Отмена', state='*')
+
+    dp.register_callback_query_handler(send_photo_cake_order, choice_value_cb.filter(),
+                                       state=OrderStateGroup.value)
+
+    dp.register_message_handler(enter_photo_order, content_types=types.ContentType.PHOTO,
+                                state=OrderStateGroup.photo)
 
     dp.register_callback_query_handler(get_phone_user, text='continue', state=OrderStateGroup.await_accept)
     dp.register_message_handler(enter_phone_user, state=OrderStateGroup.contact_user,

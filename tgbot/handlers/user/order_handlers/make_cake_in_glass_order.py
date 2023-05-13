@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from tgbot.keyboards.user.inlinekeyboard.order_ikb.order_cake_glass_ikb import \
     choice_biscuit_trifles_filling_glass_ikb, choice_mousse_trifles_filling_ikb, choice_bento_cake_in_glass_ikb, \
     choice_cupcake_in_glass_ikb, subctg_glass_cb, choice_subctg_cake_glass_ikb, choice_value_cake_glass_ikb, \
-    choice_value_bento_cake_glass_ikb, choice_value_cg_cb, choice_filling_glass_cb
+    choice_value_bento_cake_glass_ikb, choice_value_cb, choice_filling_glass_cb
 from tgbot.keyboards.user.inlinekeyboard.order_ikb.order_main_ikb import choice_category_cb, stop_ikb, accept_ikb
 from tgbot.misc.info_item import cake_in_glass_info, biscuit_trifles_filling_info, mousse_trifles_filling_info, \
     bento_cake_in_glass_info, cupcake_in_glass_info
@@ -61,29 +61,6 @@ async def choice_value_cake_in_glass_order(callback: types.CallbackQuery, state:
     await OrderStateGroup.value.set()
 
 
-async def send_photo_cake_order(callback: types.CallbackQuery, state: FSMContext, callback_data: dict):
-    value = callback_data.get('value')
-    async with state.proxy() as data:
-        data['value'] = value
-    await callback.message.edit_text(text='Пришлите фотографию вашего дизайна',
-                                     reply_markup=stop_ikb)
-    await OrderStateGroup.photo.set()
-
-
-async def enter_photo_order(message: types.Message, state: FSMContext):
-    await message.delete()
-    async with state.proxy() as data:
-        data['photo'] = message.photo[0].file_id
-    await message.answer_photo(photo=data['photo'],
-                               caption=f"Категория: {data['category']}\n"
-                                       f"Подкатегория: {data['subcategory']}\n"
-                                       f"Начинка: {data['filling']}\n"
-                                       f"Размер: {data['value']}\n",
-                               reply_markup=accept_ikb)
-
-    await OrderStateGroup.await_accept.set()
-
-
 def register_make_cake_in_glass_order_handlers(dp: Dispatcher):
     dp.register_callback_query_handler(choice_subcategory_cake_in_glass_order,
                                        choice_category_cb.filter(category='Торт в стакане'),
@@ -94,9 +71,3 @@ def register_make_cake_in_glass_order_handlers(dp: Dispatcher):
 
     dp.register_callback_query_handler(choice_value_cake_in_glass_order, choice_filling_glass_cb.filter(),
                                        state=OrderStateGroup.filling)
-
-    dp.register_callback_query_handler(send_photo_cake_order, choice_value_cg_cb.filter(),
-                                       state=OrderStateGroup.value)
-
-    dp.register_message_handler(enter_photo_order, content_types=types.ContentType.PHOTO,
-                                state=OrderStateGroup.photo)

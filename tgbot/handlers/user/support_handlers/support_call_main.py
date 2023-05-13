@@ -18,6 +18,7 @@ async def stop_wait_sup_call(callback: types.CallbackQuery, callback_data: dict)
 
 async def link_to_support_call(callback: types.CallbackQuery, state: FSMContext):
     from bot import bot, dp
+    await callback.answer('Ожидайте ответ')
     user_id = callback.from_user.id
     admin_id = support_id
     admin_state = dp.current_state(chat=admin_id, user=admin_id)
@@ -31,8 +32,9 @@ async def link_to_support_call(callback: types.CallbackQuery, state: FSMContext)
 
     user_state = dp.current_state(chat=user_id, user=user_id)
     await user_state.set_state('wait_to_accept')
-    await callback.message.answer('Ожидайте ответа от кондитера или нажмите отмена',
+    message_user_id = await callback.message.answer('Ожидайте ответа от кондитера или нажмите отмена',
                                   reply_markup=get_cancel_wait_sup_keyboard(admin_id=admin_id))
+    await user_state.update_data(message_id=message_user_id.message_id)
 
 
 def register_support_main_user_handlers(dp: Dispatcher):

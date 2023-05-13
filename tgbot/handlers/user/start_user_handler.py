@@ -13,7 +13,14 @@ async def command_start(message: types.Message):
 
 async def command_help(message: types.Message):
     await message.delete()
-    await message.answer('Здесь будет описание функций')
+    await message.answer('<b>BotShadrcake</b> для начала работы, введите команду /start\n'
+                         'Краткое описание функций:\n'
+                         '<u><b>Посмотреть мои работы</b></u>- здесь вы можете ознакомится с портфолио кондитера\n'
+                         '<u><b>Сделать заказ</b></u> - здесь вы можете оформить свой заказ\n'
+                         '<u><b>Посмотреть мой текущий заказ</b></u> - здесь вы можете посмотреть ваш текущий заказ,'
+                         ' если вы уже оформили его\n'
+                         '<u><b>Связаться с кондитером</b></u> - нажав на эту кнопку, вы сможете напрямую'
+                         ' связаться с кондитером и поговорить с ним внутри бота\n')
 
 
 def register_start_user_handlers(dp: Dispatcher):

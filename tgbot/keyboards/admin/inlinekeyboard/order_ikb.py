@@ -1,8 +1,8 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.callback_data import CallbackData
 
-
 support_user_callback = CallbackData('support', 'user_id')
+
 
 def get_link_to_user_keyboard(user_id: int = None) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(row_width=1)
@@ -14,14 +14,13 @@ def get_link_to_user_keyboard(user_id: int = None) -> InlineKeyboardMarkup:
 
 
 order_ikb = InlineKeyboardMarkup(row_width=1,
-                                     inline_keyboard=[
-                                         [InlineKeyboardButton(text='Посмотреть все заказы',
-                                                               callback_data='all_orders')],
-                                         [InlineKeyboardButton(text='Назад↩️',
-                                                               callback_data='back')]
-                                     ]
-                                     )
-
+                                 inline_keyboard=[
+                                     [InlineKeyboardButton(text='Посмотреть все заказы',
+                                                           callback_data='all_orders')],
+                                     [InlineKeyboardButton(text='Назад↩️',
+                                                           callback_data='back')]
+                                 ]
+                                 )
 
 order_callback = CallbackData('item', 'page', 'action')
 
@@ -78,3 +77,11 @@ def get_order_keyboard(page: int = 0, count_items: int = 0) -> InlineKeyboardMar
     )
 
     return keyboard
+
+
+return_to_menu_ikb = InlineKeyboardMarkup(row_width=1,
+                                          inline_keyboard=[
+                                              [InlineKeyboardButton(text='Вернутся в главное меню',
+                                                                    callback_data='back')]
+                                          ]
+                                          )

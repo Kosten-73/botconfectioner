@@ -36,7 +36,7 @@ async def add_name(message: types.Message, state: FSMContext):
 async def add_description(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['item_description'] = message.text
-    await message.answer('А теперь отправь фото')
+    await message.answer('Отправь фото')
     await ItemStateGroup.item_photo.set()
 
 
@@ -62,7 +62,7 @@ async def accept_item(callback: types.CallbackQuery, state: FSMContext):
 
 async def edit_name(callback: types.CallbackQuery):
     await callback.message.edit_reply_markup()
-    await callback.message.answer('Пришлите другое название')
+    await callback.message.answer('Пришлите новое название')
     await ItemStateGroup.item_name_edit.set()
 
 
@@ -78,7 +78,7 @@ async def add_edit_name(message: types.Message, state: FSMContext):
 
 async def edit_description(callback: types.CallbackQuery):
     await callback.message.edit_reply_markup()
-    await callback.message.answer('Пришлите другое описание')
+    await callback.message.answer('Пришлите новое описание')
     await ItemStateGroup.item_description_edit.set()
 
 

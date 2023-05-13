@@ -1,6 +1,7 @@
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 
+from tgbot.keyboards.admin.inlinekeyboard.order_ikb import return_to_menu_ikb
 from tgbot.keyboards.user.inlinekeyboard.support_ikb import support_callback
 from tgbot.keyboards.user.keyboard.support_kb import get_stop_sup_kb
 from tgbot.models.state import SupportStateGroup
@@ -8,6 +9,8 @@ from tgbot.models.state import SupportStateGroup
 
 async def accept_call(callback: types.CallbackQuery, state: FSMContext, callback_data: dict):
     from bot import dp, bot
+    await callback.answer()
+    await callback.message.delete()
     admin_id = callback_data['admin_id']
     user_id = callback.from_user.id
     await callback.message.answer('Вы находитесь в разговоре, просто пишите сообщения для общения', reply_markup=get_stop_sup_kb)
@@ -27,8 +30,12 @@ async def cancel_call(callback: types.CallbackQuery, callback_data: dict):
     from bot import bot, dp
     admin_id = callback_data['admin_id']
     admin_state = dp.current_state(chat=admin_id, user=admin_id)
+    message = await admin_state.get_data('message_id')
+    await bot.delete_message(chat_id=admin_id, message_id=message['message_id'])
     await admin_state.finish()
-    await bot.send_message(chat_id=admin_id, text='Пользователь отказался с вами разговаривать')
+    await bot.send_message(chat_id=admin_id, text='Пользователь отказался с вами разговаривать,\n'
+                                                  'Для того чтобы вернутся в меню нажмите на кнопку',
+                           reply_markup=return_to_menu_ikb)
     await callback.message.edit_text('Вы отказались общаться с кондитером')
 
 

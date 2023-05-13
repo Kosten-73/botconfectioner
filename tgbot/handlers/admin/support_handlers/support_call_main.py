@@ -10,6 +10,8 @@ async def cancel_sup_call(callback: types.CallbackQuery, callback_data: dict):
     await callback.message.edit_text('Вы отклонили запрос на диалог')
     user_id = callback_data.get('user_id')
     user_state = dp.current_state(user=user_id, chat=user_id)
+    message = await user_state.get_data('message_id')
+    await bot.delete_message(chat_id=user_id, message_id=message.get('message_id'))
     await user_state.finish()
 
     await bot.send_message(chat_id=user_id, text='Кондитер отклонил ваш запрос на диалог, попробуйте позже')
@@ -17,6 +19,8 @@ async def cancel_sup_call(callback: types.CallbackQuery, callback_data: dict):
 
 async def accept_sup_call(callback: types.CallbackQuery, callback_data: dict):
     from bot import dp, bot
+    await callback.answer()
+    await callback.message.delete()
     user_id = callback_data['user_id']
     admin_id = callback.from_user.id
     await callback.message.answer('Вы находитесь в разговоре, просто пишите сообщения для общения',
@@ -26,6 +30,8 @@ async def accept_sup_call(callback: types.CallbackQuery, callback_data: dict):
     await user_state.set_state(state=SupportStateGroup.in_support_user)
     await user_state.update_data(admin_id=admin_id)
 
+    message = await user_state.get_data('message_id')
+    await bot.delete_message(chat_id=user_id, message_id=message.get('message_id'))
     await bot.send_message(chat_id=user_id, text='Кондитер принял ваш запрос, для общения пишите в чат',
                            reply_markup=get_stop_sup_kb)
 

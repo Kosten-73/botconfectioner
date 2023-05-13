@@ -33,18 +33,18 @@ choice_brownie_ikb = InlineKeyboardMarkup(row_width=1,
                                                                     callback_data='stop_order')]
                                           ])
 
-choice_value_brownie_cb = CallbackData('choice_value_cg', 'value')
+choice_value_cb = CallbackData('choice_value', 'value')
 
 choice_value_brownie_ikb = InlineKeyboardMarkup(row_width=1,
                                                 inline_keyboard=[
                                                     [InlineKeyboardButton('6 штук',
-                                                                          callback_data=choice_value_brownie_cb.new(
+                                                                          callback_data=choice_value_cb.new(
                                                                               value='6 штук'))],
                                                     [InlineKeyboardButton('8 штук',
-                                                                          callback_data=choice_value_brownie_cb.new(
+                                                                          callback_data=choice_value_cb.new(
                                                                               value='8 штук'))],
                                                     [InlineKeyboardButton('10штук',
-                                                                          callback_data=choice_value_brownie_cb.new(
+                                                                          callback_data=choice_value_cb.new(
                                                                               value='10 штук'))],
                                                     [InlineKeyboardButton('Отмена',
                                                                           callback_data='stop_order')]

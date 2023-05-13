@@ -5,9 +5,9 @@ accept_callback = CallbackData('accept', 'action')
 
 main_menu_ikb = InlineKeyboardMarkup(row_width=1,
                                      inline_keyboard=[
-                                         [InlineKeyboardButton(text='Портфолио📕',
+                                         [InlineKeyboardButton(text='📕Портфолио📕',
                                                                callback_data='open_portfolio')],
-                                         [InlineKeyboardButton(text='Заказы❌',
+                                         [InlineKeyboardButton(text='📍Ваши заказы📍',
                                                                callback_data='open_order')]
                                      ]
                                      )
