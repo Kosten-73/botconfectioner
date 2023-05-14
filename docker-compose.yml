@@ -16,7 +16,23 @@ services:
       - ".env"
     networks:
     - tg_bot
+  db:
+    image: postgres:15.2
+    container_name: pg_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+    - pg_data:/var/lib/postgresql/data
+    ports:
+    - "5432:5432"
+    networks:
+    - tg_bot
 
+volumes:
+  pg_data:
 
 networks:
   tg_bot:

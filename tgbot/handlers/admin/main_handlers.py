@@ -28,6 +28,6 @@ async def open_admin_panel_cb(callback: types.CallbackQuery):
 
 
 def register_start_admin_handlers(dp: Dispatcher):
-    dp.register_message_handler(command_start, commands='start_admin', is_admin=True)
+    dp.register_message_handler(command_start, commands='start_admin', is_admin=True, state='*')
     dp.register_message_handler(command_help, commands='help_admin', is_admin=True)
     dp.register_callback_query_handler(open_admin_panel_cb, text='back', is_admin=True, state='*')

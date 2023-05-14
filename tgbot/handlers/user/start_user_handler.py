@@ -24,5 +24,5 @@ async def command_help(message: types.Message):
 
 
 def register_start_user_handlers(dp: Dispatcher):
-    dp.register_message_handler(command_start, CommandStart())
+    dp.register_message_handler(command_start, CommandStart(), state='*')
     dp.register_message_handler(command_help, CommandHelp())
