@@ -9,4 +9,5 @@
 BotConfictioner - это надежный помощник для кондитеров, обеспечивающий эффективное управление портфолио, заказами и легкую коммуникацию с клиентами, сокращая время и повышая качество обслуживания."
 
 Схема структуры бота:
-![BotConfictioner ](https://github.com/ALEXANDRGUSEVgithub/botconfectioner/assets/126940122/7d473e5d-18c6-48e7-bf99-148ba76ce61e)
+![BotConfictioner ](https://github.com/ALEXANDRGUSEVgithub/botconfectioner/assets/126940122/ff2c7b69-0e18-4e88-a883-ec4048fe8c8d)
+
