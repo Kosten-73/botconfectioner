@@ -62,7 +62,7 @@ async def choice_value_cake_order(callback: types.CallbackQuery, state: FSMConte
 
 
 def register_make_cake_order_handlers(dp: Dispatcher):
-    dp.register_callback_query_handler(choice_subcategory_cake_order, choice_category_cb.filter(category='Торт'),
+    dp.register_callback_query_handler(choice_subcategory_cake_order, choice_category_cb.filter(category='Молочная продукция'),
                                        state=OrderStateGroup.category)
 
     dp.register_callback_query_handler(choice_filling_cake_order, choice_subctg_cb.filter(),
