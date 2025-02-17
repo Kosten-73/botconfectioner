@@ -23,59 +23,6 @@ accept_order_ikb = InlineKeyboardMarkup(row_width=1,
 
 choice_category_cb = CallbackData('choice_category', 'category')
 
-# choice_category_cb = CallbackData('choice_category', 'category_id')
-#
-# # Словарь для сопоставления идентификаторов и названий
-# CATEGORIES = {
-#     '1': 'Молочная продукция',
-#     '2': 'Шоколад и какао продукты',
-#     '3': 'Пищевые ингредиенты',
-#     '4': 'Декор',
-#     '5': 'Красители',
-#     '6': 'Упаковка',
-#     '7': 'Кондитерские мешки, насадки',
-#     '8': 'Пищевая печать',
-#     '9': 'Товары для праздника',
-#     '10': 'Инвентарь'
-# }
-
-# choice_category_ikb = InlineKeyboardMarkup(row_width=1,
-#                                            inline_keyboard=[
-#                                                [InlineKeyboardButton('Молочная продукция',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Молочная продукция'))],
-#                                                [InlineKeyboardButton('Шоколад и какао продукты',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Шоколад и какао продукты'))],
-#                                                [InlineKeyboardButton('Пищевые ингредиенты',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Пищевые ингредиенты'))],
-#                                                [InlineKeyboardButton('Декор',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Декор'))],
-#                                                [InlineKeyboardButton('Красители',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Красители'))],
-#                                                [InlineKeyboardButton('Упаковка',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Упаковка'))],
-#                                                [InlineKeyboardButton('Кондитерские мешки, насадки',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Кондитерские мешки, насадки'))],
-#                                                [InlineKeyboardButton('Пищевая печать',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Пищевая печать'))],
-#                                                [InlineKeyboardButton('Товары для праздника',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Товары для праздника'))],
-#                                                [InlineKeyboardButton('Инвентарь',
-#                                                                      callback_data=choice_category_cb.new(
-#                                                                          category='Инвентарь'))],
-#                                                [InlineKeyboardButton('Отмена',
-#                                                                      callback_data='stop_order')]
-#                                            ]
-#                                            )
-
 categories = {
     'milk': 'Молочная продукция',
     'chocolate': 'Шоколад и какао продукты',
@@ -104,11 +51,3 @@ choice_category_ikb = InlineKeyboardMarkup(row_width=1,
                                                [InlineKeyboardButton('Отмена', callback_data='stop_order')]
                                            ]
                                            )
-
-# # Создаём клавиатуру с использованием идентификаторов
-# choice_category_ikb = InlineKeyboardMarkup(row_width=1, inline_keyboard=[
-#     [InlineKeyboardButton(name, callback_data=choice_category_cb.new(category_id=id))]
-#     for id, name in CATEGORIES.items()
-# ] + [
-#     [InlineKeyboardButton('Отмена', callback_data='stop_order')]
-# ])

@@ -25,13 +25,16 @@ async def choice_filling_cake_order(callback: types.CallbackQuery, state: FSMCon
     async with state.proxy() as data:
         data['subcategory'] = subcategory
 
-    if subcategory == 'Бисквитный торт':
+    if subcategory == 'Сливки':
         filling_info = cake_biscuit_filling_info
         filling_ikb = choice_filling_cake_biscuit_ikb
-    elif subcategory == 'Бенто-торт':
+    elif subcategory == 'Сыр':
         filling_info = bento_cake_filling_info
         filling_ikb = choice_filling_bento_cake_ikb
-    elif subcategory == 'Муссовый торт':
+    elif subcategory == 'Масло':
+        filling_info = cake_mousse_filling_info
+        filling_ikb = choice_filling_cake_mousse_ikb
+    elif subcategory == 'Молоко':
         filling_info = cake_mousse_filling_info
         filling_ikb = choice_filling_cake_mousse_ikb
     else:
