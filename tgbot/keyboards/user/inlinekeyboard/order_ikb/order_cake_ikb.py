@@ -5,15 +5,18 @@ choice_subctg_cb = CallbackData('choice_subcategory_cake', 'subcategory')
 
 choice_subcategory_cake_ikb = InlineKeyboardMarkup(row_width=1,
                                                    inline_keyboard=[
-                                                       [InlineKeyboardButton('Бисквитный торт',
+                                                       [InlineKeyboardButton('Сливки',
                                                                              callback_data=choice_subctg_cb.new(
-                                                                                 subcategory='Бисквитный торт'))],
-                                                       [InlineKeyboardButton('Бенто-торт',
+                                                                                 subcategory='Сливки'))],
+                                                       [InlineKeyboardButton('Сыр',
                                                                              callback_data=choice_subctg_cb.new(
-                                                                                 subcategory='Бенто-торт'))],
-                                                       [InlineKeyboardButton('Муссовый торт',
+                                                                                 subcategory='Сыр'))],
+                                                       [InlineKeyboardButton('Масло',
                                                                              callback_data=choice_subctg_cb.new(
-                                                                                 subcategory='Муссовый торт'))],
+                                                                                 subcategory='Масло'))],
+                                                       [InlineKeyboardButton('Молоко',
+                                                                             callback_data=choice_subctg_cb.new(
+                                                                                 subcategory='Молоко'))],
                                                        [InlineKeyboardButton('Отмена',
                                                                              callback_data='stop_order')]
                                                    ]
